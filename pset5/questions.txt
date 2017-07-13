@@ -1,0 +1,10 @@
+0.  pneumonoultramicroscopicsilicovolcanoconiosis is a lung disease caused by inhaling very fine ash and sand dust. It is the longest word in the English language.
+1.  getrusage returns resource usage measures for "int who", which is always RUSAGE_SELF in speller.c. Specifying RUSAGE_SELF returns resource usage statistics for the calling process, which is the sum of resources used by all threads in the process.
+2.  There are 16 members in struct rusage.
+3.  If before and after are passed to calculate  by value then separate memory should be allocated  in order to store these values. As the parameters are not modified in the calculate function we can pass them by reference in order to save memory.
+4.  In the main function after loading the dictionary and the text file the main function will start reading the text file. In the for loop first we read a character from the text file and check whether the character is EOF. If it is not EOF then we will continue executing the for loop. If EOF is encountered then we will terminate the for loop which means that all words are read from the text file. Otherwise, we will start executing the else-if ladder. 
+    1)If the charcater is an alphabet or apostrophy we will append the charcater to the word.  If the length of the word is greater than LENGTH we will ignore that word. 
+    2)Else If the charcater is a digit then we will ignore the word(as it contains digits).
+    3)Else If the character is a whitespace or punctuation mark then it mean that we have read the whole word. Now, we will terminate the word by \0 and pass it to the check function.   
+5.  fscanf will read characters until a whitespace is encountered. As the words in the text file may contain punctuation marks fscanf will read those punctuations marks as a part of the string which will complicate the check procedure. By using fgetc we can eliminate punctuation marks, words containing digit, and words whose size is greater than specified LENGTH.
+6.  The parameters for check and load are declared as const inorder to prevent any changes to the read word and the dictionary by the calle functions. 
