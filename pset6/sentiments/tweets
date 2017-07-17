@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+import helpers
+import nltk
+import os
+import sys
+from analyzer import Analyzer
+from termcolor import colored
+
+
+def main():
+    
+    # Accept only one command line argument
+    if len(sys.argv) != 2:
+        print ("please specify only one command line argument")
+        sys.exit(1)
+        
+    # absolute paths to lists
+    positives = os.path.join(sys.path[0], "positive-words.txt")
+    negatives = os.path.join(sys.path[0], "negative-words.txt")
+    
+    # instantiate analyzer
+    analyzer = Analyzer(positives, negatives)
+    
+    # get the screen name of the user
+    screen_name = sys.argv[1]
+    
+    # get the most recent 50 tweets of the user
+    tweets = helpers.get_user_timeline(screen_name, 50)
+    
+    # check if tweets are retrieved or not
+    if tweets == None:
+        print("Please specify valid screen name")
+        sys.exit(1)
+        
+    #analyze each tweet
+    for tweet in tweets:
+        score = analyzer.analyze(tweet)
+        if score > 0.0:
+            print(colored(score,"green"),end=" ")
+            print(colored(tweet,"green"))
+        elif score < 0.0:
+            print(colored(score,"red"),end=" ")
+            print(colored(tweet,"red"))
+        else:
+            print(colored(score,"yellow"),end=" ")
+            print(colored(tweet, "yellow"))
+        
+        
+if __name__ == "__main__":
+    main()
+
